@@ -1,8 +1,9 @@
 (function () {
   "use strict";
 
-  const SUFFIX = " -CSDN";
-  const HAS_SUFFIX = /-\s*csdn/i;
+  const SUFFIX = " -site:csdn.net";
+  const HAS_SUFFIX = /-\s*site:\s*csdn\.net/i;
+  const STRIP_SUFFIX = /\s*-\s*site:\s*csdn\.net\s*$/i;
   const GUARD_KEY = "__bing_csdn_redirect__";
 
   function needsSuffix(value) {
@@ -54,6 +55,32 @@
       input.value = withSuffix(input.value);
     }
   }
+
+  function stripSuffixVisually() {
+    const inputs = document.querySelectorAll(
+      "#sb_form_q, textarea[name='q'], input[name='q']"
+    );
+    for (let i = 0; i < inputs.length; i++) {
+      const input = inputs[i];
+      if (typeof input.value === "string" && STRIP_SUFFIX.test(input.value)) {
+        input.value = input.value.replace(STRIP_SUFFIX, "");
+      }
+    }
+  }
+
+  function scheduleVisualStrip() {
+    stripSuffixVisually();
+    setTimeout(stripSuffixVisually, 300);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", scheduleVisualStrip, {
+      once: true
+    });
+  } else {
+    scheduleVisualStrip();
+  }
+  window.addEventListener("load", stripSuffixVisually, { once: true });
 
   document.addEventListener(
     "submit",

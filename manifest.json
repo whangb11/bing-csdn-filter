@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Bing -CSDN Filter",
-  "version": "1.0.0",
-  "description": "在 Bing 搜索时自动为搜索词追加 \" -CSDN\"，过滤 CSDN 内容。",
+  "version": "1.1.0",
+  "description": "在 Bing 搜索时自动为搜索词追加 \" -site:csdn.net\"，过滤 CSDN 内容。",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
